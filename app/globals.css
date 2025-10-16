@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* subtle background grid for alignment */
+:root {
+	--auth-width: 980px;
+	--auth-height: 640px;
+}
+
+body {
+	background-image: linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+	background-size: 40px 40px, 40px 40px;
+	background-position: 0 0, 0 0;
+}
+
+.auth-shell {
+	width: var(--auth-width);
+	height: var(--auth-height);
+	max-width: calc(100% - 48px);
+}
+
+.auth-left-art {
+	background: linear-gradient(180deg, #e6fff4 0%, #d7fbe8 100%);
+}
+
+.auth-card {
+	background: white;
+	border-radius: 16px;
+}
