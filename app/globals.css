@@ -8,11 +8,11 @@
 	--auth-height: 640px;
 }
 
-body {
+/* body {
 	background-image: linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
 	background-size: 40px 40px, 40px 40px;
 	background-position: 0 0, 0 0;
-}
+} */
 
 .auth-shell {
 	width: var(--auth-width);
