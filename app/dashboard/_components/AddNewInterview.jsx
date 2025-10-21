@@ -11,6 +11,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { LoaderCircle } from 'lucide-react'
+import { chatSession } from '@/utils/GeminiAiModal'
 function AddNewInterview() {
     const [openDailog,setOpenDailog]=useState(false)
     const [jobPosition, setJobPosition]=useState();
