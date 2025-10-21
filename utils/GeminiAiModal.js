@@ -1,44 +1,45 @@
-import { GoogleGenAI } from '@google/genai';
-import dotenv from 'dotenv';
+const {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} = require("@google/generative-ai");
 
-dotenv.config(); // load GEMINI_API_KEY from .env
+const apiKey = process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(apiKey);
 
-async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
+const model = genAI.getGenerativeModel({
+  model: "gemini-2.5-flash-lite",
+});
+
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 64,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
+
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+  },
+];
+
+  
+  export const chatSession = model.startChat({
+    generationConfig,
+    safetySettings
   });
 
-  const model = 'gemini-2.5-flash-lite'; // text-only model
+  
 
-  const contents = [
-    {
-      role: 'user', // required by Gemini SDK
-      parts: [
-        {
-          text: 'INSERT_INPUT_HERE', // your prompt
-        },
-      ],
-    },
-  ];
 
-  const config = {
-    thinkingConfig: {
-      thinkingBudget: 0,
-    },
-  };
-
-  // Streaming response
-  const stream = ai.models.generateContentStream({
-    model,
-    contents,
-    config,
-  });
-
-  for await (const chunk of stream) {
-    if (chunk.text) {
-      console.log(chunk.text); // print text output
-    }
-  }
-}
-
-main();
